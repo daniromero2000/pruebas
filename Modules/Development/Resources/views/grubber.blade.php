@@ -1,0 +1,2 @@
+@extends('development::grubber-app')
+

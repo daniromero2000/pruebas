@@ -1,0 +1,177 @@
+/* ************************
+PHONE LANDSCAPE VERSION
+************************** */
+@media only screen and (min-width: 560px) and (max-width: 815px) and (orientation: landscape) {}
+
+/* ************************
+PHONE PORTRAIT VERSION 
+************************** */
+@media only screen and (min-width: 320px) and (max-width: 420px) and (orientation: portrait) {}
+
+/* ************************
+ TABLET PORTRAIT VERSION 
+************************** */
+@media only screen and (min-width: 768px) and (max-width: 810px) and (orientation: portrait) {}
+
+/* ************************
+SMALL DESKTOP VERSION 
+************************** */
+@media only screen and (min-width: 980px) and (max-width: 1299px) {}
+
+/* ************************
+BIG DESKTOP VERSION 
+************************** */
+@media only screen and (min-width: 1300px) {}
+
+
+/* ************************
+General
+************************** */
+.top-buffer {
+    margin-top: 20px;
+}
+
+.bottom-buffer {
+    margin-bottom: 20px;
+}
+
+.top-left {
+    margin-left: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ************************
+PHONE LANDSCAPE VERSION
+************************** */
+@media only screen and (min-width: 560px) and (max-width: 815px) and (orientation: landscape) {
+    body {
+        padding-top: 63px !important;
+    }
+
+    .row-buffer {
+        padding: 40px;
+    }
+
+    .top-buffer {
+        margin-top: 20px;
+    }
+
+    .hidden-xs {
+        display: none !important;
+    }
+}
+
+/* ************************
+PHONE PORTRAIT VERSION 
+************************** */
+@media only screen and (min-width: 320px) and (max-width: 420px) and (orientation: portrait) {
+    body {
+        padding-top: 54px !important;
+    }
+
+    .row-buffer {
+        padding: 40px;
+    }
+
+    .hidden-xs {
+        display: none !important;
+    }
+
+    .top-buffer {
+        margin-top: 20px;
+    }
+
+    .top-sm-buffer {
+        margin-top: 0px;
+    }
+ }
+
+/* ************************
+ TABLET PORTRAIT VERSION 
+************************** */
+@media only screen and (min-width: 768px) and (max-width: 810px) and (orientation: portrait) {
+    body {
+        padding-top: 63px !important;
+    }
+
+    .row-buffer {
+        padding: 40px;
+    }
+
+    .top-buffer {
+        margin-top: 20px;
+    }
+}
+
+/* ************************
+SMALL DESKTOP VERSION 
+************************** */
+@media only screen and (min-width: 980px) and (max-width: 1299px) {
+    body {
+        padding-top: 76px !important;
+    }
+
+    .row-buffer {
+        padding: 40px;
+    }
+
+    .top-buffer {
+        margin-top: 20px;
+    }
+}
+
+/* ************************
+BIG DESKTOP VERSION 
+************************** */
+@media only screen and (min-width: 1300px) {
+    body {
+        padding-top: 89px !important;
+    }
+
+    .row-buffer {
+        padding: 40px;
+    }
+
+    .top-buffer {
+        margin-top: 20px;
+    }
+}
+
+
+/* PHONE PORTRAIT VERSION */
+@media only screen and (min-width: 310px) and (max-width: 420px) and (orientation: portrait) {
+    table {
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr:nth-of-type(2n) {
+        background-color: inherit;
+    }
+
+    tr td:first-child {
+        background: #f0f0f0;
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+
+    tbody td {
+        display: block;
+        text-align: center;
+    }
+
+    tbody td:before {
+        content: attr(data-th);
+        display: block;
+        text-align: center;
+    }
+}
+
+
