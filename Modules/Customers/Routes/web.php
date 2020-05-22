@@ -20,6 +20,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
         Route::namespace('Customers')->group(function () {
             Route::resource('customers', 'CustomerController');
             Route::resource('customer-statuses', 'CustomerStatusController');
+            Route::get('/api/customers', 'CustomerController@list');
+            Route::get('/api/listEconomicActivity', 'CustomerController@getlistEconomicActivity');
+            Route::get('/api/listCities', 'CustomerController@getListCities');
+            Route::get('/api/customers/{id}', 'CustomerController@getCustomer');
             Route::get('customers/{customer}/recover', 'CustomerController@recoverTrashedCustomer')->name('customers.recover');
         });
 

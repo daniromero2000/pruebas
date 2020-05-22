@@ -13,7 +13,7 @@ class CustomerStatus extends Model
     protected $table = 'customer_statuses';
 
     protected $fillable = [
-        'name',
+        'status',
         'color',
     ];
 
@@ -30,7 +30,6 @@ class CustomerStatus extends Model
         'deleted_at',
         'created_at',
         'updated_at',
-        'color'
     ];
 
     protected $dates  = [

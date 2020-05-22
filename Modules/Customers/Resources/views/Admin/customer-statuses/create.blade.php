@@ -26,7 +26,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-check"></i>
                         </div>
-                        <input class="form-control" type="text" name="name" id="name" value="{{ old('name') }}"
+                        <input class="form-control" type="text" name="status" id="name" value="{{ old('status') }}"
                             placeholder="Nombre" required>
                     </div>
                 </div>

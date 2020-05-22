@@ -22,7 +22,7 @@ use Modules\Companies\Entities\EmployeePositions\EmployeePosition;
 use Modules\Companies\Entities\EmployeeProfessions\EmployeeProfession;
 use Modules\Companies\Entities\EmployeeStatusesLogs\EmployeeStatusesLog;
 use Modules\Customers\Entities\CustomerStatusesLogs\CustomerStatusesLog;
-use Modules\EmployeeAbsences\Entities\EmployeeAbsences\EmployeeAbsence;
+use Modules\CallCenter\Entities\Assignments\CallCenterAssignment;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Employee extends Authenticatable
@@ -167,8 +167,9 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(Project::class);
     }
-    public function employeeAbsences()
+
+    public function callCenterAssignments()
     {
-        return $this->belongsToMany(EmployeeAbsence::class);
+        return $this->hasMany(CallCenterAssignment::class);
     }
 }

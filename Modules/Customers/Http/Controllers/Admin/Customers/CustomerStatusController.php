@@ -37,6 +37,10 @@ class CustomerStatusController extends Controller
 
     public function store(CreateCustomerStatusRequest $request)
     {
+        if(!strpos($request['color'], '#')){
+            $request['color'] = '#'.$request['color'];
+        }
+
         $this->customerStatusesInterface->createCustomerStatus($request->except('_token', '_method'));
         $request->session()->flash('message', 'Creación Estado Exitosa');
         return redirect()->route('admin.customer-statuses.index');

@@ -20,7 +20,7 @@ $actions = session('actionsModule');
 
 <script>
     function destroy(id) {
-        var opcion = confirm("¿Estas Seguro?");
+        var opcion = confirm("¿Estás seguro de eliminar este registro?");
         if (opcion == true) {
             document.getElementById("form_"+id).submit();
         } else {

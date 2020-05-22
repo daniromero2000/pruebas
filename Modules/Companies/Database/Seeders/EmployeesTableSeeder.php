@@ -3,6 +3,7 @@
 namespace Modules\Companies\Database\Seeders;
 
 use Modules\Companies\Entities\Employees\Employee;
+use Modules\Companies\Entities\PermissionGroups\PermissionGroup;
 use Modules\Companies\Entities\Permissions\Permission;
 use Modules\Companies\Entities\Actions\Action;
 use Modules\Companies\Entities\ActionRole\ActionRole;
@@ -14,11 +15,29 @@ class EmployeesTableSeeder extends Seeder
 {
     public function run()
     {
+
+        $permissionGroupAdmon = factory(PermissionGroup::class)->create([
+            'name' => 'Administrativos'
+        ]);
+
+        $permissionGroupPqrs = factory(PermissionGroup::class)->create([
+            'name' => 'Pqr´s'
+        ]);
+
+        $permissionGroupCustomers = factory(PermissionGroup::class)->create([
+            'name' => 'Clientes'
+        ]);
+
+        $permissionGroupCatalog = factory(PermissionGroup::class)->create([
+            'name' => 'Catálogo'
+        ]);
+
         // Módulo Empleados
         $moduleEmployees = factory(Permission::class)->create([
             'name'         => 'employees',
             'display_name' => 'Empleados',
-            'icon'         => 'fas fa-user'
+            'icon'         => 'fas fa-user',
+            'permission_group_id' =>  $permissionGroupAdmon->id
         ]);
 
         // Acciones Módulo Empleados
@@ -66,7 +85,8 @@ class EmployeesTableSeeder extends Seeder
         $moduleCities = factory(Permission::class)->create([
             'name'         => 'countries',
             'display_name' => 'Ciudades',
-            'icon'         => 'fas fa-flag'
+            'icon'         => 'fas fa-flag',
+            'permission_group_id' =>  $permissionGroupAdmon->id
         ]);
 
         // Acciones Módulo Ciudades
@@ -91,7 +111,8 @@ class EmployeesTableSeeder extends Seeder
         $moduleSubsidiaries = factory(Permission::class)->create([
             'name'         => 'subsidiaries',
             'display_name' => 'Sucursales',
-            'icon'         => 'fas fa-map-marker'
+            'icon'         => 'fas fa-map-marker',
+            'permission_group_id' =>  $permissionGroupAdmon->id
         ]);
 
         // Acciones Módulo Sucursales
@@ -139,7 +160,8 @@ class EmployeesTableSeeder extends Seeder
         $moduleRoles = factory(Permission::class)->create([
             'name'         => 'roles',
             'display_name' => 'Roles',
-            'icon'         => 'fas fa-user-tag'
+            'icon'         => 'fas fa-user-tag',
+            'permission_group_id' =>  $permissionGroupAdmon->id
         ]);
 
         // Acciones Módulo Roles
@@ -187,7 +209,8 @@ class EmployeesTableSeeder extends Seeder
         $modulePermission = factory(Permission::class)->create([
             'name'         => 'permissions',
             'display_name' => 'Permisos',
-            'icon'         => 'fas fa-check-double'
+            'icon'         => 'fas fa-check-double',
+            'permission_group_id' =>  $permissionGroupAdmon->id
         ]);
 
         // Acciones Módulo Permisos
@@ -235,7 +258,8 @@ class EmployeesTableSeeder extends Seeder
         $modulePqrs = factory(Permission::class)->create([
             'name'         => 'pqrs',
             'display_name' => 'PQR´s',
-            'icon'         => 'fas fa-headset'
+            'icon'         => 'fas fa-headset',
+            'permission_group_id' =>  $permissionGroupPqrs->id
         ]);
 
         // Acciones Módulo PQRs
@@ -284,7 +308,8 @@ class EmployeesTableSeeder extends Seeder
         $modulePqrsStatuses = factory(Permission::class)->create([
             'name'         => 'pqrs-statuses',
             'display_name' => 'Estados PQRS',
-            'icon'         => 'fas fa-headset'
+            'icon'         => 'fas fa-headset',
+            'permission_group_id' =>  $permissionGroupPqrs->id
         ]);
 
         // Acciones Módulo PQRs
@@ -324,7 +349,8 @@ class EmployeesTableSeeder extends Seeder
         $moduleCustomers = factory(Permission::class)->create([
             'name'         => 'customers',
             'display_name' => 'Clientes',
-            'icon'         => 'fas fa-address-book'
+            'icon'         => 'fas fa-address-book',
+            'permission_group_id' =>  $permissionGroupCustomers->id
         ]);
 
         // Acciones Módulo PQRs
@@ -373,7 +399,8 @@ class EmployeesTableSeeder extends Seeder
         $moduleCustomerStatuses = factory(Permission::class)->create([
             'name'         => 'customer-statuses',
             'display_name' => 'Estados Clientes',
-            'icon'         => 'fas fa-address-book'
+            'icon'         => 'fas fa-address-book',
+            'permission_group_id' =>  $permissionGroupCustomers->id
         ]);
 
         $actionCustomerStatusView = factory(Action::class)->create([
@@ -413,7 +440,8 @@ class EmployeesTableSeeder extends Seeder
         $moduleProjects = factory(Permission::class)->create([
             'name'         => 'projects',
             'display_name' => 'Proyectos',
-            'icon'         => 'fas fa-address-book'
+            'icon'         => 'fas fa-address-book',
+            'permission_group_id' =>  $permissionGroupAdmon->id
         ]);
 
         // Acciones Módulo PQRs
@@ -457,14 +485,15 @@ class EmployeesTableSeeder extends Seeder
             'principal'     => 0
         ]);
 
-        // Módulo Projects
+        // Módulo Acciones
         $moduleActions = factory(Permission::class)->create([
             'name'         => 'actions',
             'display_name' => 'Acciones',
-            'icon'         => 'fas fa-address-book'
+            'icon'         => 'fas fa-address-book',
+            'permission_group_id' =>  $permissionGroupAdmon->id
         ]);
 
-        // Acciones Módulo PQRs
+        // Acciones Módulo Acciones
         $actionActionsView = factory(Action::class)->create([
             'permission_id' => 11,
             'name'          => 'Ver Acciones',
@@ -510,7 +539,8 @@ class EmployeesTableSeeder extends Seeder
         $moduleAbsences = factory(Permission::class)->create([
             'name'         => 'absences',
             'display_name' => 'Ausencias',
-            'icon'         => 'fas fa-address-book'
+            'icon'         => 'fas fa-address-book',
+            'permission_group_id' =>  $permissionGroupCustomers->id
         ]);
 
         // Acciones Módulo PQRs
@@ -551,6 +581,154 @@ class EmployeesTableSeeder extends Seeder
             'name'          => 'Borrar Ausencia',
             'icon'          => 'fas fa-times',
             'route'         => 'admin.absences.destroy',
+            'principal'     => 0
+        ]);
+
+
+        // Módulo Productos
+        $moduleProducts = factory(Permission::class)->create([
+            'name'         => 'products',
+            'display_name' => 'Productos',
+            'icon'         => 'fas fa-user',
+            'permission_group_id' =>  $permissionGroupCatalog->id
+        ]);
+
+        // Acciones Módulo Productos
+        $actionProductViews = factory(Action::class)->create([
+            'permission_id' => 13,
+            'name'          => 'Ver Productos',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.products.index',
+            'principal'     => 1
+        ]);
+
+        $actionProductCreate = factory(Action::class)->create([
+            'permission_id' => 13,
+            'name'      => 'Crear Producto',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.products.create',
+            'principal' => 1
+        ]);
+
+        $actionProductUpdate = factory(Action::class)->create([
+            'permission_id' => 13,
+            'name'          => 'Editar Producto',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.products.edit',
+            'principal'     => 0
+        ]);
+
+        $actionProductShow = factory(Action::class)->create([
+            'permission_id' => 13,
+            'name'          => 'Ver Producto',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.Products.show',
+            'principal'     => 0
+        ]);
+
+        $actionProductDelete = factory(Action::class)->create([
+            'permission_id' => 13,
+            'name'          => 'Borrar Producto',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.product.destroy',
+            'principal'     => 0
+        ]);
+
+        // Módulo Categorias
+        $moduleCategories = factory(Permission::class)->create([
+            'name'         => 'categories',
+            'display_name' => 'Categorias',
+            'icon'         => 'fas fa-user',
+            'permission_group_id' =>  $permissionGroupCatalog->id
+        ]);
+
+        // Acciones Módulo Categorias
+        $actionCategoryViews = factory(Action::class)->create([
+            'permission_id' => 14,
+            'name'          => 'Ver Categorías',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.categories.index',
+            'principal'     => 1
+        ]);
+
+        $actionCategoryCreate = factory(Action::class)->create([
+            'permission_id' => 14,
+            'name'      => 'Crear Categoría',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.categories.create',
+            'principal' => 1
+        ]);
+
+        $actionCategoryUpdate = factory(Action::class)->create([
+            'permission_id' => 14,
+            'name'          => 'Editar Categoría',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.categories.edit',
+            'principal'     => 0
+        ]);
+
+        $actionCategoryShow = factory(Action::class)->create([
+            'permission_id' => 14,
+            'name'          => 'Ver Categoría',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.categories.show',
+            'principal'     => 0
+        ]);
+
+        $actionCategoryDelete = factory(Action::class)->create([
+            'permission_id' => 14,
+            'name'          => 'Borrar Categoría',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.categories.destroy',
+            'principal'     => 0
+        ]);
+
+        // Módulo Atributos
+        $moduleAttributes = factory(Permission::class)->create([
+            'name'         => 'attributes',
+            'display_name' => 'Atributos',
+            'icon'         => 'fas fa-user',
+            'permission_group_id' =>  $permissionGroupCatalog->id
+        ]);
+
+        // Acciones Módulo Atributos
+        $actionAttributeViews = factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'          => 'Ver Atributos',
+            'icon'          => 'fas fa-eye',
+            'route'         => 'admin.attributes.index',
+            'principal'     => 1
+        ]);
+
+        $actionAttributeCreate = factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'      => 'Crear Atributo',
+            'icon'      => 'fas fa-plus',
+            'route'     => 'admin.attributes.create',
+            'principal' => 1
+        ]);
+
+        $actionAttributeUpdate = factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'          => 'Editar Atributo',
+            'icon'          => 'fas fa-edit',
+            'route'         => 'admin.attributes.edit',
+            'principal'     => 0
+        ]);
+
+        $actionAttributeShow = factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'          => 'Ver Atributo',
+            'icon'          => 'fas fa-search',
+            'route'         => 'admin.attributes.show',
+            'principal'     => 0
+        ]);
+
+        $actionAttributeDelete = factory(Action::class)->create([
+            'permission_id' => 15,
+            'name'          => 'Borrar Atributo',
+            'icon'          => 'fas fa-times',
+            'route'         => 'admin.attributes.destroy',
             'principal'     => 0
         ]);
 
@@ -882,6 +1060,63 @@ class EmployeesTableSeeder extends Seeder
 
         $absencesAction = factory(ActionRole::class)->create([
             'action_id' => 55,
+            'role_id'   => 1
+        ]);
+
+        // Permiso Módulo Productos
+        $roleSuperRepo->attachToPermission($moduleProducts);
+        // Permisos Acciones Módulo Productos
+        $productsAction = factory(ActionRole::class)->create([
+            'action_id' => 56,
+            'role_id'   => 1
+        ]);
+
+        $productsAction = factory(ActionRole::class)->create([
+            'action_id' => 57,
+            'role_id'   => 1
+        ]);
+
+        $productsAction = factory(ActionRole::class)->create([
+            'action_id' => 58,
+            'role_id'   => 1
+        ]);
+
+        $productsAction = factory(ActionRole::class)->create([
+            'action_id' => 59,
+            'role_id'   => 1
+        ]);
+
+        $productsAction = factory(ActionRole::class)->create([
+            'action_id' => 60,
+            'role_id'   => 1
+        ]);
+
+
+        // Permiso Módulo Productos
+        $roleSuperRepo->attachToPermission($moduleCategories);
+        // Permisos Acciones Módulo Productos
+        $categoriesAction = factory(ActionRole::class)->create([
+            'action_id' => 61,
+            'role_id'   => 1
+        ]);
+
+        $categoriesAction = factory(ActionRole::class)->create([
+            'action_id' => 62,
+            'role_id'   => 1
+        ]);
+
+        $categoriesAction = factory(ActionRole::class)->create([
+            'action_id' => 63,
+            'role_id'   => 1
+        ]);
+
+        $categoriesAction = factory(ActionRole::class)->create([
+            'action_id' => 64,
+            'role_id'   => 1
+        ]);
+
+        $categoriesAction = factory(ActionRole::class)->create([
+            'action_id' => 65,
             'role_id'   => 1
         ]);
 

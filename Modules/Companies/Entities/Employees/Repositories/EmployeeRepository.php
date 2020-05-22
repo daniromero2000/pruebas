@@ -60,17 +60,18 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function findEmployeeById(int $id): Employee
     {
         try {
-            return $this->model->with('employeeCommentaries')
-            ->with('department')
-                ->with('employeeStatusesLogs')
-                ->with('employeePosition')
-                ->with('employeeEmails')
-                ->with('employeePhones')
-                ->with('employeeAddresses')
-                ->with('employeeIdentities')
-                ->with('employeeEpss')
-                ->with('employeeProfessions')
-                ->findOrFail($id);
+            return $this->model->with([
+                'employeeCommentaries',
+                'department',
+                'employeeStatusesLogs',
+                'employeePosition',
+                'employeeEmails',
+                'employeePhones',
+                'employeeAddresses',
+                'employeeIdentities',
+                'employeeEpss',
+                'employeeProfessions'
+            ])->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             abort(503, $e->getMessage());
         }

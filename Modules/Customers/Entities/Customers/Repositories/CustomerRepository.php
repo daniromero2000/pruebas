@@ -40,9 +40,10 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function listCustomers($totalView): Support
     {
         try {
-            return  $this->model->with('customerStatus')
-                ->with('customerLead')
-                ->orderBy('created_at', 'asc')
+            return  $this->model->with([
+                'customerStatus',
+                'customerLead'
+            ])->orderBy('created_at', 'asc')
                 ->skip($totalView)
                 ->take(30)
                 ->get($this->columns);
@@ -82,20 +83,25 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function findCustomerById(int $id): Customer
     {
         try {
-            $customer = $this->model->with('customerPhones')
-                ->with('customerAddresses')
-                ->with('customerEmails')
-                ->with('customerStatus')
-                ->with('customerIdentities')
-                ->with('genre')
-                ->with('customerCommentaries')
-                ->with('customerStatusesLog')
-                ->with('customerVehicles')
-                ->with('customerProfessions')
-                ->with('customerReferences')
-                ->with('customerEpss')
-                ->with('customerEconomicActivities')
-                ->findOrFail($id);
+            $customer = $this->model->with([
+                'genre',
+                'customerPhones',
+                'customerAddresses',
+                'customerEmails',
+                'customerStatus',
+                'customerLead',
+                'customerIdentities',
+                'city',
+                'civilStatus',
+                'scholarity',
+                'customerCommentaries',
+                'customerStatusesLog',
+                'customerVehicles',
+                'customerProfessions',
+                'customerReferences',
+                'customerEpss',
+                'customerEconomicActivities'
+            ])->findOrFail($id);
 
             $customer->age =  $this->getCustomerAge($customer->birthday);
 
@@ -126,9 +132,17 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function searchCustomer(string $text = null): Collection
     {
         if (is_null($text)) {
-            return $this->model->all();
+            return  $this->model->with([
+                'customerStatus',
+                'customerLead'
+            ])->orderBy('created_at', 'asc')
+                ->take(30)
+                ->get($this->columns);
         }
-        return $this->model->searchCustomer($text)->get();
+        return $this->model->searchCustomer($text)->with([
+            'customerStatus',
+            'customerLead'
+        ])->get($this->columns);
     }
 
     public function searchTrashedCustomer(string $text = null): Collection

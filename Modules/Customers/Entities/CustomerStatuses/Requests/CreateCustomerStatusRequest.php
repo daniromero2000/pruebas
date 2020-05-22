@@ -2,14 +2,14 @@
 
 namespace Modules\Customers\Entities\CustomerStatuses\Requests;
 
-use Modules\Customers\Entities\Base\BaseFormRequest;
+use App\Entities\Generals\Base\BaseFormRequest;
 
 class CreateCustomerStatusRequest extends BaseFormRequest
 {
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:customer_statuses']
+            'status' => ['required', 'unique:customer_statuses']
         ];
     }
 }

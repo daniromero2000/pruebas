@@ -19,6 +19,6 @@ $factory->define(Permission::class, function (Faker\Generator $faker) {
         'name'         => $faker->unique()->word,
         'icon'         => $faker->unique()->word,
         'display_name' => '',
-        'description'  => ''
+        'description'  => '',
     ];
 });

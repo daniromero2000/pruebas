@@ -27,7 +27,7 @@ use Modules\Customers\Entities\CustomerStatuses\Repositories\Interfaces\Customer
 use Modules\Customers\Entities\CustomerStatusesLogs\Repositories\Interfaces\CustomerStatusesLogRepositoryInterface;
 use Modules\Customers\Entities\CustomerLeads\Repositories\Interfaces\CustomerLeadRepositoryInterface;
 use App\Entities\Generals\EconomicActivityTypes\Repositories\Interfaces\EconomicActivityTypeRepositoryInterface;
-
+use SebastianBergmann\Environment\Console;
 
 class CustomerController extends Controller
 {
@@ -82,30 +82,10 @@ class CustomerController extends Controller
         $this->middleware(['permission:customers, guard:employee']);
     }
 
+
     public function index(Request $request)
     {
-        $skip = $this->toolsInterface->getSkip($request->input('skip'));
-        $list = $this->customerInterface->listCustomers($skip * 30);
-
-        if (request()->has('q')) {
-            $list = $this->customerInterface->searchCustomer(request()->input('q'));
-        }
-
-        if (request()->has('t')) {
-            $list = $this->customerInterface->searchTrashedCustomer(request()->input('t'));
-        }
-
-        $customers = $list->where('status', 1)->map(function (Customer $customer) {
-            return $this->transformCustomer($customer);
-        })->all();
-
-        return view('customers::admin.customers.list', [
-            'customers'     => $customers,
-            'optionsRoutes' => 'admin.' . (request()->segment(2)),
-            'user'          => auth()->guard('employee')->user(),
-            'skip'          => $skip,
-            'headers'       => ['ID', 'Nombre', 'Apellido', 'Fecha Ingreso', 'Lead', 'Estado', 'Opciones']
-        ]);
+        return view('customers::admin.customers.list');
     }
 
     public function create()
@@ -140,21 +120,22 @@ class CustomerController extends Controller
         $customer = $this->customerInterface->findCustomerById($id);
 
         return view('customers::admin.customers.show', [
+            'customerId'                   => $id,
             'customer'                     => $customer,
             'currentStatus'                => $customer->customerStatus,
-            'epss'                         => $this->epsInterface->getAllEpsNames(),
-            'genres'                       => $this->genreInterface->getAllGenresNames(),
-            'customer_leads'               => $this->customerLeadInterface->getAllCustomerLeadNames(),
-            'scholarities'                 => $this->scholarityInterface->getAllScholaritiesNames(),
-            'civil_statuses'               => $this->civilStatusInterface->getAllCivilStatusesNames(),
-            'stratums'                     => $this->stratumInterface->getAllStratumsNames(),
+            // 'epss'                         => $this->epsInterface->getAllEpsNames(),
+            // 'genres'                       => $this->genreInterface->getAllGenresNames(),
+            // 'customer_leads'               => $this->customerLeadInterface->getAllCustomerLeadNames(),
+            // 'scholarities'                 => $this->scholarityInterface->getAllScholaritiesNames(),
+            // 'civil_statuses'               => $this->civilStatusInterface->getAllCivilStatusesNames(),
+            // 'stratums'                     => $this->stratumInterface->getAllStratumsNames(),
             'cities'                       => $this->cityInterface->listCities(),
-            'housings'                     => $this->housingInterface->getAllHousingsNames(),
-            'identity_types'               => $this->identityTypeInterface->getAllIdentityTypesNames(),
-            'vehicle_types'                => $this->vehicleTypeInterface->getAllVehicleTypesNames(),
-            'vehicle_brands'               => $this->vehicleBrandInterface->getAllVehicleBrandsNames(),
-            'professions_lists'            => $this->professionsListInterface->getAllProfessionsNames(),
-            'relationships'                => $this->relationshipInterface->getAllRelationshipsNames(),
+            // 'housings'                     => $this->housingInterface->getAllHousingsNames(),
+            // 'identity_types'               => $this->identityTypeInterface->getAllIdentityTypesNames(),
+            // 'vehicle_types'                => $this->vehicleTypeInterface->getAllVehicleTypesNames(),
+            // 'vehicle_brands'               => $this->vehicleBrandInterface->getAllVehicleBrandsNames(),
+            // 'professions_lists'            => $this->professionsListInterface->getAllProfessionsNames(),
+            // 'relationships'                => $this->relationshipInterface->getAllRelationshipsNames(),
             'economic_activity_types'      => $this->economicActivityInterface->getAllEconomicActivityTypesNames()
         ]);
     }
@@ -180,8 +161,7 @@ class CustomerController extends Controller
     {
         $customer = $this->customerInterface->findCustomerById($id);
         $update   = new CustomerRepository($customer);
-        $data     = $request->except('_method', '_token', 'password');
-
+        $data     = $request->except('customer_lead', 'customer_status', '_method', '_token', 'password');
         if ($request->has('password')) {
             $data['password'] = bcrypt($request->input('password'));
         }
@@ -197,10 +177,8 @@ class CustomerController extends Controller
             'employee_id' => auth()->guard('employee')->user()->id
         );
 
-        $this->customerStatusesLogInterface->createCustomerStatusesLog($customerStatusLog);
-        $request->session()->flash('message', 'Actualización Exitosa!');
-
-        return redirect()->route('admin.customers.show', $id);
+        $customerStatusLogs = $this->customerStatusesLogInterface->createCustomerStatusesLog($customerStatusLog);
+        return response()->json([$update, $customerStatusLogs], 201);
     }
 
     public function destroy($id)
@@ -209,5 +187,74 @@ class CustomerController extends Controller
         $customerRepo->deleteCustomer();
 
         return redirect()->route('admin.customers.index')->with('message', 'Eliminado Satisfactoriamente');
+    }
+
+    public function getCustomer(int $id)
+    {
+        $customer = $this->customerInterface->findCustomerById($id);
+
+        return [
+            'customer'                     => $customer,
+            'currentStatus'                => $customer->customerStatus,
+            // 'epss'                         => $this->epsInterface->getAllEpsNames(),
+            // 'genres'                       => $this->genreInterface->getAllGenresNames(),
+            // 'customer_leads'               => $this->customerLeadInterface->getAllCustomerLeadNames(),
+            // 'scholarities'                 => $this->scholarityInterface->getAllScholaritiesNames(),
+            // 'civil_statuses'               => $this->civilStatusInterface->getAllCivilStatusesNames(),
+            // 'stratums'                     => $this->stratumInterface->getAllStratumsNames(),
+            // 'cities'                       => $this->cityInterface->listCities(),
+            // 'housings'                     => $this->housingInterface->getAllHousingsNames(),
+            // 'identity_types'               => $this->identityTypeInterface->getAllIdentityTypesNames(),
+            // 'vehicle_types'                => $this->vehicleTypeInterface->getAllVehicleTypesNames(),
+            // 'vehicle_brands'               => $this->vehicleBrandInterface->getAllVehicleBrandsNames(),
+            // 'professions_lists'            => $this->professionsListInterface->getAllProfessionsNames(),
+            // 'relationships'                => $this->relationshipInterface->getAllRelationshipsNames(),
+            // 'economic_activity_types'      => $this->economicActivityInterface->getAllEconomicActivityTypesNames()
+        ];
+    }
+
+    public function list(Request $request)
+    {
+        $skip = $this->toolsInterface->getSkip($request->input('skip'));
+        $list = $this->customerInterface->listCustomers($skip * 30);
+
+        if (request()->has('q')) {
+            $list = $this->customerInterface->searchCustomer(request()->input('q'));
+        }
+
+        if (request()->has('t')) {
+            $list = $this->customerInterface->searchTrashedCustomer(request()->input('t'));
+        }
+        return [
+            'customers'     => $list,
+            'headers'       => ['Nombre', 'Apellido', 'Fecha Ingreso', 'Lead', 'Estado', 'Opciones'],
+            'optionsRoutes' => 'admin.' . (request()->segment(2)),
+        ];
+        // , [
+        //     'customers'     => $list,
+        //     'optionsRoutes' => 'admin.' . (request()->segment(2)),
+        //     'user'          => auth()->guard('employee')->user(),
+        //     'skip'          => $skip,
+        //     'headers'       => ['Nombre', 'Apellido', 'Fecha Ingreso', 'Lead', 'Estado', 'Opciones'],
+        //     'cities'        => $this->cityInterface->listCities(),
+        //     'scholarities'        => $this->scholarityInterface->getAllScholaritiesNames(),
+        //     'statuses'            => $this->customerStatusInterface->listCustomerStatuses(),
+        //     'customer_leads'      => $this->customerLeadInterface->getAllCustomerLeadNames(),
+        // ]
+    }
+
+    public function getlistEconomicActivity(Request $request)
+    {
+        return [
+            'professions_lists'            => $this->professionsListInterface->getAllProfessionsNames(),
+            'economic_activity_types'      => $this->economicActivityInterface->getAllEconomicActivityTypesNames()
+        ];
+    }
+
+    public function getListCities(Request $request)
+    {
+        return [
+            'cities' => $this->cityInterface->listCities(),
+        ];
     }
 }

@@ -5,8 +5,19 @@
  */
 
 require('./bootstrap');
+import Vuex from 'vuex'
+import Vue from 'vue'
 
+// import store from './store';
+
+import { Form, HasError, AlertError } from 'vform';
+
+
+Vue.use(Vuex)
 window.Vue = require('vue');
+window.Form = Form;
+require('./../../Modules/Customers/Resources/assets/js/app');
+require('./../../Modules/Companies/Resources/assets/js/app');
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,14 +30,24 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('HasError', HasError);
+Vue.component('AlertError', AlertError);
+Vue.component('list-category', require('./components/Category/ListCategoryComponent.vue').default);
+Vue.component('modal-category', require('./components/Category/EditModalCategoryComponent.vue').default);
+Vue.component('create-category', require('./components/Category/CreateCategoryComponent.vue').default);
+Vue.component('list-customers', require('./../../Modules/Customers/Resources/assets/js/components/customers/listCustomers.vue').default);
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+window.eventBus = new Vue({});
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+
+// });

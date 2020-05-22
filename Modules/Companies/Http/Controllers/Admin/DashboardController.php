@@ -30,15 +30,15 @@ class DashboardController extends Controller
     public function redirectAction($action_id)
     {
         session(['actionsModule' => []]);
-        $actionsPerModule = session('actionsPerModule');
+        $actionsPerModule = session('actionsModuleOnlyId');
         $action           = $this->actionInterface->findActionById($action_id);
-
         if (in_array($action_id, $actionsPerModule[$action['permission_id']])) {
             $actions = session('actionsUser');
             if ($actions[$action['permission_id']]) {
                 $actionsUser = $actions[$action['permission_id']];
                 session(['actionsModule' => $actionsUser]);
             }
+
             return redirect()->route($action['route']);
         } else {
             return redirect()->back();

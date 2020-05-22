@@ -1,63 +1,44 @@
-@extends('layouts.admin.app')
+@extends('layouts.newAdmin.app')
 @section('title', 'Dashboard')
 @section('content')
+<div class="container-fluid">
+    <section class="content">
+        @include('layouts.errors-and-messages')
 
-<section class="content">
-    @include('layouts.errors-and-messages')
-    <div class="row">
-        <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <ol class="breadcrumb">
-                <li><a href="{{ route('admin.dashboard') }}"> <i class="fa fa-home"></i> Dashboard</a><span
-                        class="divider"></span>
-                </li>
-            </ol>
-        </div>
-    </div>
-    <div class="box" style="box-shadow: 0px 2px 25px rgba(0, 0, 0, .25);">
-        <div class="box-header with-border">
-            <h1 class="box-title"><strong>Panel Administrativo</strong></h1>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                    title="Collapse">
-                    <i class="fa fa-minus">
-                        <!-- --></i><!-- --></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                    title="Remove">
-                    <i class="fa fa-times">
-                        <!-- --></i><!-- --></button>
-            </div>
-        </div>
-    </div>
-    <div class="box" style="box-shadow: 0px 2px 25px rgba(0, 0, 0, .25);">
-        <div class="box-header with-border">
-            <h1 class="box-title"><strong>Panel Administrativo</strong></h1>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                    title="Collapse">
-                    <i class="fa fa-minus">
-                        <!-- --></i><!-- --></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip"
-                    title="Remove">
-                    <i class="fa fa-times">
-                        <!-- --></i><!-- --></button>
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Panel Administrativo</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                        title="Collapse">
+                        <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
+                        title="Remove">
+                        <i class="fas fa-times"></i></button>
+                </div>
             </div>
             <div class="row">
                 <div class="col">
-                    @foreach ($permissions as $key => $module)
-                    @foreach ($module['actionsPrincipal'] as $action)
-                    <a class="btn btn-app" href={{route('admin.redirectAction', [$action['id']]) }}>
-                        <i class="{{ $action['icon'] }}"></i> {{ $action['name'] }}
-                    </a>
-                    @endforeach
-                    @endforeach
+
                 </div>
             </div>
+
         </div>
-    </div>
-</section>
-
-<section class="content">
-
-</section>
+    </section>
+</div>
 
 @endsection

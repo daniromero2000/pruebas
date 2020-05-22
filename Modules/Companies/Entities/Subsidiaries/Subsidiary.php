@@ -2,10 +2,12 @@
 
 namespace Modules\Companies\Entities\Subsidiaries;
 
-use App\Entities\Generals\Cities\City;
-use Illuminate\Database\Eloquent\Model;
+use Modules\Warranty\Entities\WarrantyCases\WarrantyCase;
+use Modules\Companies\Entities\Departments\Department;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use App\Entities\Generals\Cities\City;
+use Illuminate\Database\Eloquent\Model;
 
 class Subsidiary extends Model
 {
@@ -70,5 +72,10 @@ class Subsidiary extends Model
     public function departments()
     {
         return $this->hasMany(Department::class);
+    }
+
+    public function warranties()
+    {
+        return $this->hasMany(WarrantyCase::class);
     }
 }

@@ -10,15 +10,17 @@
     "require": {
         "php": "^7.3",
         "fideloper/proxy": "^4.0",
-        "jeroennoten/laravel-adminlte": "^2.0",
+        "intervention/image": "^2.5",
+        "jeroennoten/laravel-adminlte": "^3.0",
+        "kalnoy/nestedset": "^5.0",
         "laravel/framework": "^6.0",
         "laravel/helpers": "^1.1",
         "laravel/socialite": "^4.1",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^6.0",
+        "nicolaslopezj/searchable": "1.*",
         "nwidart/laravel-modules": "^5.1",
-        "santigarcor/laratrust": "5.2.*",
-        "nicolaslopezj/searchable": "1.*"
+        "santigarcor/laratrust": "5.2.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

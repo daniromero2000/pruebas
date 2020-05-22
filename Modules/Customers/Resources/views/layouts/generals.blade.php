@@ -1,7 +1,8 @@
 <div class="box" style="box-shadow: 0px 2px 25px rgba(0, 0, 0, .25);">
   <div class="box-body">
-    <h2><i class="fa fa-user" aria-hidden="true"></i> {{ $customer->name }} {{ $customer->last_name }} <p class="text-center label"
-        style="color: #ffffff; background-color: {{ $currentStatus->color }}" class="btn btn-info btn-block">
+    <h2><i class="fa fa-user" aria-hidden="true"></i> {{ $customer->name }} {{ $customer->last_name }} <p
+        class="text-center label" style="color: #ffffff; background-color: {{ $currentStatus->color }}"
+        class="btn btn-info btn-block">
         {{ $currentStatus->status }}</p>
     </h2>
     <table class="table table-borderless table-hover table-sm">
@@ -31,7 +32,7 @@
     <div class="row">
       <div class="col">
         <form action="{{ route('admin.customers.destroy', $customer['id']) }}" method="post" class="form-horizontal">
-         @csrf
+          @csrf
           <input type="hidden" name="_method" value="delete">
           <div class="btn-group">
             <a href="{{ route('admin.customers.edit', $customer['id']) }}" class="btn btn-primary btn-sm"><i

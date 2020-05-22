@@ -33,3 +33,9 @@ Route::namespace('Front')->group(function () {
         Route::resource('pqrs', 'PqrController');
     });
 });
+
+Auth::routes();
+
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');

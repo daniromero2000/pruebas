@@ -8,7 +8,6 @@ use Illuminate\Database\Seeder;
 
 class EmployeePositionsTableSeeder extends Seeder
 {
-
   public function run()
   {
     factory(EmployeePosition::class)->create([

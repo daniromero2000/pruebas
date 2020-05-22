@@ -17,17 +17,17 @@
     <div class="box crud-box" style="box-shadow: 0px 2px 25px rgba(0, 0, 0, .25);">
         <form action="{{ route('admin.customers.update', $customer->id) }}" method="post" class="form">
             <div class="box-body">
-               @csrf
+                @csrf
                 <h1>Editar Cliente</h1>
-               @method('PUT')
+                @method('PUT')
                 <div class="form-group">
                     <label for="name">Nombre <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-user"></i>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i></span>
                         </div>
-                        <input type="text" name="name" id="name" validation-pattern="name" placeholder="Nombre" class="form-control"
-                            value="{!! $customer->name ?: old('name')  !!}" required>
+                        <input type="text" name="name" id="name" validation-pattern="name" placeholder="Nombre"
+                            class="form-control" value="{!! $customer->name ?: old('name')  !!}" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -36,7 +36,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" name="last_name" id="last_name" validation-pattern="name" placeholder="Apellido" class="form-control"
+                        <input type="text" name="last_name" id="last_name" validation-pattern="name"
+                            placeholder="Apellido" class="form-control"
                             value="{!! $customer->last_name ?: old('last_name')  !!}" required>
                     </div>
                 </div>

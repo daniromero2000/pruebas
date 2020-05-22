@@ -11,6 +11,7 @@ class Genre extends Model
 {
     use SoftDeletes;
 
+
     protected $fillable = [
         'genre'
     ];

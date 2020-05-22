@@ -55,8 +55,9 @@ class CustomerEconomicActivityController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(CreateCustomerEconomicActivityRequest $request)
+    public function store(Request $request)
     {
+        // dd($request);
         $customerEconomicActivity = $this->customerEconomicActivityInterface->createCustomerEconomicActivity($request->except('_token', '_method'));
 
         $data = array(
@@ -67,8 +68,8 @@ class CustomerEconomicActivityController extends Controller
 
         $this->customerStatusesLogInterface->createCustomerStatusesLog($data);
 
-        $request->session()->flash('message', 'Adición de Referencia exitosa!');
-        return back();
+        // $request->session()->flash('message', 'Adición de Referencia exitosa!');
+        return $customerEconomicActivity;
     }
 
     /**

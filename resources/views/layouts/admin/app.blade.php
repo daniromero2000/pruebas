@@ -139,37 +139,11 @@
     <!-- bs-custom-file-input -->
     <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
     <!-- Page script -->
-    <script >
-    export default {
-props: [ 'idconvocatoria' ],
-created() {
-    this.getCronograma();
-},
-data: function () {
-    return {
-        actividades: [],
-    }
-},
-methods: {
-    getCronograma: function () {
-        let url = '/intranet/convocatorias/getetapas/'+this.idconvocatoria;
-        axios.get(url).then(response => {
-            this.actividades = response.data;
-        }).catch(error => {
-            toastr.error('no se pudo traer el cronograma');
-        });
-    },
-    formatearFecha: function (date) {
-        return moment(date).format();
-    }
-}</script>
-     <script type="text/javascript">
-        $(".form_datetime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            linkField: "mirror_field",
-            linkFormat: "yyyy-mm-dd hh:ii"
-        });
-    </script>    
+    <script type="text/javascript">
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
+</script>
     <script>
     $(function () {
         //Initialize Select2 Elements

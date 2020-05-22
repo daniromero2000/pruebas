@@ -15,10 +15,7 @@
             </td>
             @endforeach
             <td class="text-center">
-                <p class="text-center label"
-                    style="color: #ffffff; background-color: {{ $data->color }}">
-
-                </p>
+                <span style="display:block; width: 45px; height: 15px; margin:auto; background-color:{{ $data['color'] }}"></span>
             </td>
             <td class="text-center">
                 @include('layouts.admin.tables.table_options', [$data, 'optionsRoutes' => $optionsRoutes])

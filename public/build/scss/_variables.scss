@@ -5,6 +5,7 @@
 // COLORS
 // --------------------------------------------------------
 $blue: #0073b7 !default;
+$lightblue: #3c8dbc !default;
 $navy: #001f3f !default;
 $teal: #39cccc !default;
 $olive: #3d9970 !default;
@@ -17,6 +18,7 @@ $black: #111 !default;
 $gray-x-light: #d2d6de !default;
 
 $colors: map-merge((
+    'lightblue': $lightblue,
     'navy': $navy,
     'olive': $olive,
     'lime': $lime,
@@ -97,7 +99,7 @@ $main-footer-height-inner: (($font-size-root * $line-height-base) + ($main-foote
 $main-footer-height: calc(#{$main-footer-height-inner} + #{$main-footer-border-top-width}) !default;
 $main-footer-height-sm-inner: (($font-size-sm * $line-height-base) + ($main-footer-padding-sm * 2)) !default;
 $main-footer-height-sm: calc(#{$main-footer-height-sm-inner} + #{$main-footer-border-top-width}) !default;
-$main-footer-bg: $white;
+$main-footer-bg: $white !default;
 
 // SIDEBAR SKINS
 // --------------------------------------------------------

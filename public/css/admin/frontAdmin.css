@@ -1,0 +1,55 @@
+.row-reset{
+    margin: 0px !important;
+}
+.title-table {
+    font-size: 16pt;
+}
+
+.row-reset {
+    margin: 0px !important;
+}
+
+.title-table-status {
+    font-size: 13pt !important;
+}
+
+.header-table {
+    font-size: 11pt;
+}
+
+.body-table {
+    font-size: 10pt;
+}
+
+.card-table-reset {
+    box-shadow: 0px 0px 1px rgba(110, 104, 104, 0.2), 0 7px 8px rgba(110, 104, 104, 0.2) !important;
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: rgba(19, 123, 236, 0.1) !important;
+}
+
+.header-table-responsive {
+    max-height: 497px;
+}
+
+.container-responsive {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.height-table {
+    max-height: 600px;
+}
+
+.border-select-reset {
+    border: 1px solid #ced4da !important;
+}
+
+label {
+    font-size: 12px !important;
+    line-height: 1em !important;
+    font-weight: bold !important;
+    color: #999 !important;}

@@ -7,11 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CustomersDatabaseSeeder extends Seeder
 {
-  /**
-   * Run the database seeds.
-   *
-   * @return void
-   */
   public function run()
   {
     Model::unguard();

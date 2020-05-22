@@ -3,6 +3,8 @@
 namespace Modules\Companies\Entities\Permissions;
 
 use Laratrust\Models\LaratrustPermission;
+use Modules\Companies\Entities\Roles\Role;
+use Modules\Companies\Entities\PermissionGroups\PermissionGroup;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
 
@@ -16,7 +18,8 @@ class Permission extends LaratrustPermission
         'name',
         'display_name',
         'icon',
-        'description'
+        'description',
+        'permission_group_id'
     ];
 
     protected $hidden = [
@@ -55,5 +58,9 @@ class Permission extends LaratrustPermission
     public function role()
     {
         return $this->belongsToMany(Role::class, 'permission_role', 'permission_id', 'role_id');
+    }
+
+    public function permissionGroup(){
+        return $this->belongsTo(PermissionGroup::class);
     }
 }

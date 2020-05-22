@@ -27,8 +27,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-check"></i>
                         </div>
-                        <input class="form-control" type="text" name="name" id="name"
-                            value="{{ $customerStatus->status ?: old('name') }}" placeholder="Nombre" required>
+                        <input class="form-control" type="text" name="status" id="status"
+                            value="{{ $customerStatus->status ?: old('status') }}" placeholder="Nombre" required>
                     </div>
                 </div>
                 <div class="form-group">

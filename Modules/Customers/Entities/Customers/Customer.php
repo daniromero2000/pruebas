@@ -45,6 +45,7 @@ class Customer extends Authenticatable
         'customer_lead_id',
         'civil_status_id',
         'scholarity_id',
+        'lead_id',
     ];
 
     protected $hidden = [
@@ -52,11 +53,8 @@ class Customer extends Authenticatable
         'remember_token',
         'deleted_at',
         'updated_at',
-        'status',
         'relevance',
-        'status_id',
-        'genre',
-        'lead_id'
+        'genre'
     ];
 
     protected $guarded = [
@@ -100,12 +98,12 @@ class Customer extends Authenticatable
 
     public function customerProfessions()
     {
-        return $this->hasMany(CustomerProfession::class)->whereStatus(true);
+        return $this->hasMany(CustomerProfession::class)->whereStatus(true)->with(['professionsList']);
     }
 
     public function customerIdentities()
     {
-        return $this->hasMany(CustomerIdentity::class)->whereStatus(true);
+        return $this->hasMany(CustomerIdentity::class)->whereStatus(true)->with(['identityType', 'city']);
     }
 
     public function customerPhones()
@@ -120,12 +118,12 @@ class Customer extends Authenticatable
 
     public function customerReferences()
     {
-        return $this->hasMany(CustomerReference::class)->whereStatus(true);
+        return $this->hasMany(CustomerReference::class)->whereStatus(true)->with(['customerPhone', 'relationship']);
     }
 
     public function customerEconomicActivities()
     {
-        return $this->hasMany(CustomerEconomicActivity::class)->whereStatus(true);
+        return $this->hasMany(CustomerEconomicActivity::class)->whereStatus(true)->with(['economicActivityType', 'professionsList', 'city']);
     }
 
     public function customerEmails()
@@ -140,7 +138,7 @@ class Customer extends Authenticatable
 
     public function customerVehicles()
     {
-        return $this->hasMany(CustomerVehicle::class)->whereStatus(true);
+        return $this->hasMany(CustomerVehicle::class)->whereStatus(true)->with(['vehicleBrand', 'vehicleType']);
     }
 
     public function customerStatus()

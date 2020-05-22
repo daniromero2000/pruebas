@@ -39,36 +39,50 @@ class LoginController extends Controller
         $details           = $request->only('email', 'password');
         $details['status'] = 1;
         if (auth()->guard('employee')->attempt($details)) {
-            $user             = auth()->guard('employee')->user();
-            $roles            = $user->role()->get();
-            $permission       = [];
-            $action           = [];
-            $actionsUser      = [];
-            $actionsPerModule = [];
+            $user                = auth()->guard('employee')->user();
+            $roles               = $user->role()->get();
+            $permission          = [];
+            $permissionsRole     = [];
+            $permissionsRoleUser = [];
+            $actions              = [];
+            $actionsUser         = [];
+            $actionsPerModule    = [];
 
             foreach ($roles as $role) {
                 $permission = $role->permission->toArray();
-                $action     = $role->action->toArray();
+                $permissionsRole = $role->permission;
+                $actions     = $role->action->toArray();
             }
-            foreach ($permission as $key => $module) {
-                $actionsUser[$permission[$key]['id']]      = [];
-                $actionsPerModule[$permission[$key]['id']] = [];
-                foreach ($action as $value) {
-                    if ($permission[$key]['id'] == $value['permission_id']) {
-                        $actionsPerModule[$permission[$key]['id']][] = $value['id'];
-                        if ($value['principal'] == 1) {
-                            $permission[$key]['actionsPrincipal'][] = $value;
-                        } else {
-                            $actionsUser[$permission[$key]['id']][] = $value;
-                            $permission[$key]['actionsList'][]      = $value;
+
+            foreach ($permissionsRole as $key => $value) {
+                $permissionsRoleUser[$permissionsRole[$key]->permissionGroup->name][] = $permissionsRole[$key]->toArray();
+            }
+
+            foreach ($permissionsRoleUser as $key => $values) {
+                foreach ($permissionsRoleUser[$key] as $key2 => $module) {
+                    $actionsUser[$module['id']]      = [];
+                    $actionsPerModule[$module['id']] = [];
+                    $actionsModule[$module['id']] = [];
+                    foreach ($actions as $action) {
+                        if ($module['id'] == $action['permission_id']) {
+                            $actionsPerModule[$module['id']][] = $action;
+                            $actionsModule[$module['id']][] = $action['id'];
+                            if ($action['principal'] == 1) {
+                                $permissionsRoleUser[$key][$key2]['actionsPrincipal'][] = $action;
+                            } else {
+                                $actionsUser[$module['id']][] = $action;
+                                $permissionsRoleUser[$key][$key2]['actionslist'][] = $action;
+                            }
                         }
                     }
                 }
             }
-            session(['actions'          => $action]);
-            session(['permission'       => $permission]);
+
+            session(['actions'          => $actions]);
+            session(['permission'       => $permissionsRoleUser]);
             session(['actionsUser'      => $actionsUser]);
             session(['actionsPerModule' => $actionsPerModule]);
+            session(['actionsModuleOnlyId' => $actionsModule]);
             return $this->sendLoginResponse($request);
         }
 

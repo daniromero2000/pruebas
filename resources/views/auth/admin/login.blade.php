@@ -45,8 +45,8 @@
                             class="img-responsive center-block" alt="Lagobo" width="190" title="Lagobo"></div>
                     @include('layouts.errors-and-messages')<div class="login-box-body">
                         <h1 class="login-box-msg">Inicia Sesión</h1>
-                        <form action="{{ route('admin.login') }}" method="post">@csrf
-                            <div class="form-group has-feedback">
+                        <form action="{{ route('admin.login') }}" method="post">@csrf<div
+                                class="form-group has-feedback">
                                 <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
                                     <input type="email" name="email" class="form-control" value="{{ old('email') }}"
                                         placeholder="{{ trans('adminlte::adminlte.email') }}" required>

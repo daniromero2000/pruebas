@@ -445,12 +445,15 @@ blockquote {
   padding-bottom: .5rem;
 }
 
-// Remove Firefox Focusring
-a,
-button,
-input.btn {
-  &:-moz-focusring {
-    border: 0;
-    outline: none;
-  }
+
+// Badge BTN Style
+.badge-btn {
+  border-radius: $button-border-radius-xs;
+  font-size: $button-font-size-xs;
+  font-weight: 400;
+  padding: $button-padding-y-xs*2 $button-padding-x-xs*2;
+}
+
+.badge-btn.badge-pill {
+  padding: .375rem .6rem;
 }

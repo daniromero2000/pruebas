@@ -39,11 +39,11 @@ class CustomerReference extends Model
 
     public function customerPhone()
     {
-        return $this->belongsTo(CustomerPhone::class);
+        return $this->belongsTo(CustomerPhone::class)->with(['customer']);
     }
 
     public function relationship()
     {
-        return $this->belongsTo(Relationship::class);
+        return $this->belongsTo(Relationship::class)->with(['referenceType']);
     }
 }
